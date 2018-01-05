@@ -76,6 +76,8 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210000;
+        consensus.blocktimeAdjustmentHeight = 100000;
+        consensus.blocktimeReductionFactor = 10;
         /* **** IOP CHANGE //
         IoP Chain uses the coinbase content to store the miner signature, so we can not enforce BIP34 in its current form.
         So deactivate the check for BIP34 completely
@@ -186,6 +188,8 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 210000;
+        consensus.blocktimeAdjustmentHeight = 20000;
+        consensus.blocktimeReductionFactor = 10;
         /* **** IOP CHANGE //
         IoP Chain uses the coinbase content to store the miner signature, so we can not enforce BIP34 in its current form.
         So deactivate the check for BIP34 completely
@@ -287,6 +291,8 @@ public:
     CRegTestParams() {
         strNetworkID = "regtest";
         consensus.nSubsidyHalvingInterval = 150;
+        consensus.blocktimeAdjustmentHeight = 3000;
+        consensus.blocktimeReductionFactor = 10;
         /* **** IOP CHANGE //
         IoP Chain uses the coinbase content to store the miner signature, so we can not enforce BIP34 in its current form.
         So deactivate the check for BIP34 completely
