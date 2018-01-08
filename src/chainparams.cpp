@@ -76,7 +76,7 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210000;
-        consensus.blocktimeAdjustmentHeight = 100000;
+        consensus.blocktimeAdjustmentHeight = 60480;
         consensus.blocktimeReductionFactor = 10;
         /* **** IOP CHANGE //
         IoP Chain uses the coinbase content to store the miner signature, so we can not enforce BIP34 in its current form.
@@ -188,7 +188,7 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 210000;
-        consensus.blocktimeAdjustmentHeight = 20000;
+        consensus.blocktimeAdjustmentHeight = 16128;
         consensus.blocktimeReductionFactor = 10;
         /* **** IOP CHANGE //
         IoP Chain uses the coinbase content to store the miner signature, so we can not enforce BIP34 in its current form.
