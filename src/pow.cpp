@@ -51,7 +51,10 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
 
-    int64_t targetTimespan = params.nPowTargetTimespan/params.blocktimeReductionFactor;
+    int64_t targetTimespan = params.nPowTargetTimespan
+    if (pindexLast->nHeight >= params.blocktimeAdjustmentHeight - 1) {
+        targetTimespan /= params.blocktimeReductionFactor;
+    }
 
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
