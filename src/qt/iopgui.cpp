@@ -255,7 +255,7 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
 #endif
 
 
-    checkForUpdate(false);
+    // checkForUpdate(false);
 }
 
 IoPGUI::~IoPGUI()
