@@ -106,7 +106,6 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
                                                                                                          signMessageAction(0),
                                                                                                          verifyMessageAction(0),
                                                                                                          aboutAction(0),
-                                                                                                         updateAction(0),
                                                                                                          receiveCoinsAction(0),
                                                                                                          receiveCoinsMenuAction(0),
                                                                                                          optionsAction(0),
@@ -115,6 +114,7 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
                                                                                                          backupWalletAction(0),
                                                                                                          changePassphraseAction(0),
                                                                                                          aboutQtAction(0),
+                                                                                                         updateAction(0),
                                                                                                          openRPCConsoleAction(0),
                                                                                                          openAction(0),
                                                                                                          showHelpMessageAction(0),
@@ -134,6 +134,7 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
         move(QApplication::desktop()->availableGeometry().center() - frameGeometry().center());
     }
 
+    std::cout << "settings loaded\n";
 
     if (IoPStyles::customThemeIsSet()) {
         IoPStyles::addFonts();
@@ -146,6 +147,8 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
         setStyleSheet(styleSheetString);
         ensurePolished();
     }
+
+    std::cout << "theme initialized\n";
 
     QString windowTitle = tr(PACKAGE_NAME) + " - ";
 #ifdef ENABLE_WALLET
@@ -164,6 +167,9 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
     MacDockIconHandler::instance()->setIcon(networkStyle->getAppIcon());
 #endif
     setWindowTitle(windowTitle);
+
+
+    std::cout << "window title set\n";
 
 #if defined(Q_OS_MAC) && QT_VERSION < 0x050000
     // This property is not implemented in Qt 5. Setting it has no effect.
@@ -187,17 +193,26 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
         setCentralWidget(rpcConsole);
     }
 
+
+    std::cout << "rpc console initialized\n";
+
     // Accept D&D of URIs
     setAcceptDrops(true);
+    
+    std::cout << "loading updateNAM\n";
 
     updateNAM = new QNetworkAccessManager();
 
+    std::cout << "updateNam loaded\n";
     // Create actions for the toolbar, menu bar and tray/dock icon
     // Needs walletFrame to be initialized
     createActions();
 
+    std::cout << "actions created\n";
     // Create application menu bar
     createMenuBar();
+
+    std::cout << "menubar created\n";
 
     // Progress bar and label for blocks download
     progressBarLabel = new QLabel();
@@ -210,9 +225,12 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
     // Create tool bars
     createToolBars();
 
+    std::cout << "toolbars created\n";
+
     // Create system tray icon and notification
     createTrayIcon(networkStyle);
 
+    std::cout << "trayicon set\n";
     // Create status bar
     //statusBar();
 
@@ -243,6 +261,8 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
     // Subscribe to notifications from core
     subscribeToCoreSignals();
 
+    std::cout << "subscribed to core signals\n";
+
     connect(connectionsControl, SIGNAL(clicked(QPoint)), this, SLOT(toggleNetworkActive()));
 
     modalOverlay = new ModalOverlay(platformStyle, this->centralWidget());
@@ -256,6 +276,8 @@ IoPGUI::IoPGUI(const PlatformStyle* _platformStyle, const NetworkStyle* networkS
 
 
     // checkForUpdate(false);
+
+    std::cout << "gui done\n";
 }
 
 IoPGUI::~IoPGUI()
