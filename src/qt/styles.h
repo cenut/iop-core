@@ -55,10 +55,10 @@
     static const QString styleSheetString =  QString(
             //General
             "QFrame "
-            "{ background-color: " + s_iopantrazith + "; border: none; font-family: Encode Sans Expanded; font-size: 14px;}"
+            "{ background-color: " + s_iopantrazith + "; border: none;  font-size: 14px;}"
             
             "QWidget "
-            "{ background: " + s_iopantrazith + "; color: " + s_iopLightGrey + "; font-family: Encode Sans Expanded; font-size: 14px;}"
+            "{ background: " + s_iopantrazith + "; color: " + s_iopLightGrey + ";  font-size: 14px;}"
 
             "#addressBookButton, #pasteButton, #deleteButton "
             "{ width: 35; height: 35; background-color: " + s_highlight_light_anthrazith + "; color: " + s_iopLightGrey + "; border: 1px outset rgb(33,33,33); padding: 6px; border-radius: 0px;}"
@@ -225,10 +225,10 @@
      public:
          static void addFonts()
          {
-            QFontDatabase::addApplicationFont(":/fonts/light");
+            /*QFontDatabase::addApplicationFont(":/fonts/light");
             QFontDatabase::addApplicationFont(":/fonts/regular");
             QFontDatabase::addApplicationFont(":/fonts/medium");
-            QFontDatabase::addApplicationFont(":/fonts/bold");
+            QFontDatabase::addApplicationFont(":/fonts/bold");*/
          }
 
          static bool customThemeIsSet()
