@@ -554,12 +554,13 @@ WId IoPApplication::getMainWinId() const
 #ifndef IOP_QT_TEST
 int main(int argc, char *argv[])
 {
+    std::cout << "started main";
     SetupEnvironment();
-
+    std::cout << "environment set up succesfully";
     /// 1. Parse command-line options. These take precedence over anything else.
     // Command-line options take precedence:
     gArgs.ParseParameters(argc, argv);
-
+    std::cout << "arguments parsed";
     // Do not refer to data directory yet, this can be overridden by Intro::pickDataDirectory
 
     /// 2. Basic Qt initialization (not dependent on parameters or configuration)
@@ -605,7 +606,7 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationDomain(QAPP_ORG_DOMAIN);
     QApplication::setApplicationName(QAPP_APP_NAME_DEFAULT);
     GUIUtil::SubstituteFonts(GetLangTerritory());
-
+    std::cout << "FONTS SUBSTITUTED";
     /// 4. Initialization of translations, so that intro dialog is in user's language
     // Now that QSettings are accessible, initialize translations
     QTranslator qtTranslatorBase, qtTranslator, translatorBase, translator;
@@ -620,15 +621,15 @@ int main(int argc, char *argv[])
         help.showOrPrint();
         return EXIT_SUCCESS;
     }
-
+    std::cout << "beyong help message";
     /// 4.5 Settings available --> init Platformstyle 
     app.initPlatformStyle(); 
-
+    std::cout << "inited platform style";
     /// 5. Now that settings and translations are available, ask user for data directory
     // User language is set up: pick a data directory
     if (!Intro::pickDataDirectory())
         return EXIT_SUCCESS;
-
+    std::cout << "beyond datadir";
     /// 6. Determine availability of data directory and parse iop.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!fs::is_directory(GetDataDir(false)))
@@ -662,14 +663,14 @@ int main(int argc, char *argv[])
     // Parse URIs on command line -- this can affect Params()
     PaymentServer::ipcParseCommandLine(argc, argv);
 #endif
-
+    std::cout << "chain name";
     QScopedPointer<const NetworkStyle> networkStyle(NetworkStyle::instantiate(QString::fromStdString(Params().NetworkIDString())));
     assert(!networkStyle.isNull());
     // Allow for separate UI settings for testnets
     QApplication::setApplicationName(networkStyle->getAppName());
     // Re-initialize translations after changing application name (language in network-specific settings can be different)
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
-
+    std::cout << "translations";
 #ifdef ENABLE_WALLET
     /// 8. URI IPC sending
     // - Do this early as we don't want to bother initializing if we are just calling IPC
@@ -684,6 +685,7 @@ int main(int argc, char *argv[])
     // iop: links repeatedly have their payment requests routed to this process:
     app.createPaymentServer();
 #endif
+    std::cout << "payment server";
 
     /// 9. Main GUI initialization
     // Install global event filter that makes sure that long tooltips can be word-wrapped
@@ -701,6 +703,8 @@ int main(int argc, char *argv[])
 #endif
     // Allow parameter interaction before we create the options model
     app.parameterSetup();
+    std::cout << "parameters setup";
+
     // Load GUI settings from QSettings
     app.createOptionsModel(gArgs.IsArgSet("-resetguisettings"));
 
@@ -738,5 +742,7 @@ int main(int argc, char *argv[])
         app.handleRunawayException(QString::fromStdString(GetWarnings("gui")));
     }
     return rv;
+    std::cout << "end of main";
+
 }
 #endif // IOP_QT_TEST
